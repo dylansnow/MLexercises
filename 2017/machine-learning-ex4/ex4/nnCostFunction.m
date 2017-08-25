@@ -62,6 +62,8 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+% START OF COST FUNCTION CALCULATION
+
 % y recoded to the format expected of multi-label vectors, one vector for each row
 yRecoded = bsxfun(@eq, 1:num_labels, y);
 
@@ -80,16 +82,31 @@ J = (1 / m) * sum(sum((-yRecoded .* log(a3)) - (1 - yRecoded) .* log(1 - a3)), 2
 
 % END OF COST FUNCTION CALCULATION
 
+% START OF UNIT GRADIENT CALCULATION
 
+for i = 1:m
+	a1 = X(i,:);
+	a1 = [1 a1];
 
+	z2 = a1 * Theta1';
+	a2 = sigmoid(z2);
+	a2 = [1 a2];
 
+	z3 = a2 * Theta2';
+	a3 = sigmoid(z3);
 
+	delta3 = a3 - yRecoded(i, :);
+	delta2 = delta3 * Theta2(:,2:end) .* sigmoidGradient(z2);
 
+	Theta1_grad = Theta1_grad + delta2' * a1;
+	Theta2_grad = Theta2_grad + delta3' * a2;
 
+end
 
+Theta1_grad = (1 / m) * Theta1_grad;
+Theta2_grad = (1 / m) * Theta2_grad;
 
-
-
+% END OF UNIT GRADIENT CALCULATION
 
 % -------------------------------------------------------------
 
