@@ -1,6 +1,0 @@
-# depslib dependency file v1.0
-1460766909 source:/home/dylan/Work/main.cpp
-	<GLFW/glfw3.h>
-	<stdlib.h>
-	<stdio.h>
-
