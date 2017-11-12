@@ -15,7 +15,7 @@ X_poly = zeros(numel(X), p);
 %
 % 
 
-keyboard
+X_poly = bsxfun(@power, X, 1:p);
 
 
 
