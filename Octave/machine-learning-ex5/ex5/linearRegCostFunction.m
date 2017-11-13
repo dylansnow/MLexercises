@@ -18,12 +18,7 @@ grad = zeros(size(theta));
 %
 %               You should set J to the cost and grad to the gradient.
 %
-%keyboard;
-%J = (1 / (2 * m)) * sum((1.0 ./ (1.0 + exp(X * theta)) - y) .^ 2) + (lambda / (2 * m)) * sum(theta .^ 2);
 
-%J = (1 / (2 * m)) * sum((1.0 ./ (1.0 + exp(-(X * theta))) - y) .^ 2) + (lambda / (2 * m)) * sum(theta .^ 2);
-
-%J = (1 / (2 * m)) * sum((1.0 ./ (1.0 + exp(X(:,2:end))) - y) .^ 2) + (lambda / (2 * m)) * sum(theta(2:end) .^ 2);
 J = (1 / (2 * m)) * sum((X * theta - y) .^ 2) + (lambda / (2 * m)) * sum(theta(2:end) .^ 2);
 
 thetaTemp = theta;
