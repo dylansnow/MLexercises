@@ -97,12 +97,10 @@ while ~isempty(email_contents)
     %       str2). It will return 1 only if the two strings are equivalent.
     %
 
-    for word = ostrsplit(email_contents, ' ')
-	if lookup(vocabList, word)
-	idx = find(ismember(vocabList, word));
+    if lookup(vocabList, str)
+	idx = find(ismember(vocabList, str));
 	word_indices = [word_indices; idx];
-	endif
-    endfor
+    endif
 
 
 
