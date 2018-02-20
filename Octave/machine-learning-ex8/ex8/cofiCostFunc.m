@@ -40,11 +40,24 @@ Theta_grad = zeros(size(Theta));
 %                     partial derivatives w.r.t. to each element of Theta
 %
 
+inner = (X * Theta') - Y;
+inner_sq = inner .^ 2;
+J = (1/2) * sum(inner_sq(inner_sq & (R == 1)));
 %keyboard;
-inner = (((X * Theta') - Y) .^2);
-J = (1/2) * sum(inner(inner & (R == 1)));
 
+%X_grad = ((X * Theta') - Y) * Theta;
+%Theta_grad = ((X * Theta') - Y)' * X;
 
+inner_grad = inner_temp = and(inner, (inner & (R == 1))) .* inner;
+X_grad = inner_grad * Theta;
+Theta_grad = inner_grad' * X;
+ 
+%for i = 1:rows(X)
+%	idx = find(R(i, :) == 1);
+%	Theta_temp = Theta(idx,:);
+%	Y_temp = Y(i, idx);
+%	X_grad(i,:) = (X(i,:) * Theta_temp' - Y_temp) * Theta_temp;
+%endfor
 
 
 
