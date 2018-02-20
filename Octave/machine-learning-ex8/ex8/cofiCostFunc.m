@@ -42,16 +42,19 @@ Theta_grad = zeros(size(Theta));
 
 inner = (X * Theta') - Y;
 inner_sq = inner .^ 2;
-J = (1/2) * sum(inner_sq(inner_sq & (R == 1)));
+%J = (1/2) * sum(inner_sq(inner_sq & (R == 1)));
 %keyboard;
+J = (1/2) * sum(inner_sq(inner_sq & (R == 1))) + (lambda / 2) * sum(sum(Theta .^ 2)) + (lambda / 2) * sum(sum(X .^ 2));
 
 %X_grad = ((X * Theta') - Y) * Theta;
 %Theta_grad = ((X * Theta') - Y)' * X;
 
-inner_grad = inner_temp = and(inner, (inner & (R == 1))) .* inner;
-X_grad = inner_grad * Theta;
-Theta_grad = inner_grad' * X;
+inner_grad = and(inner, R) .* inner;
+X_grad = inner_grad * Theta + lambda * X;
+Theta_grad = inner_grad' * X + lambda * Theta;
  
+
+%keyboard%
 %for i = 1:rows(X)
 %	idx = find(R(i, :) == 1);
 %	Theta_temp = Theta(idx,:);
